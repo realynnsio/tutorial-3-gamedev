@@ -2,9 +2,13 @@ extends CharacterBody2D
 
 @export var gravity = 500.0
 @export var walk_speed = 200
+var walk = walk_speed
 @export var run_speed = 500
+var run = run_speed
 @export var jump_speed = -300
+var jump = jump_speed
 var can_double_jump = false
+@onready var _animated_sprite = $AnimatedSprite2D
 
 var right_tap_timer = 0
 var left_tap_timer = 0
@@ -30,28 +34,45 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	velocity.y += delta * gravity
 	
-	if is_on_floor() and Input.is_action_just_pressed("ui_up"):
-		velocity.y = jump_speed
-		can_double_jump = true
-	elif !is_on_floor() and can_double_jump and Input.is_action_just_pressed("ui_up"):
-		velocity.y = jump_speed
-		can_double_jump = false
+	# Handle crouch and jump
+	if Input.is_action_pressed("ui_down"):
+		walk = walk_speed / 4
+		run = run_speed / 4
+		scale.y = 0.75
+		
+		if !is_on_floor():
+			velocity.y += delta * 20 * gravity
+	else:
+		scale.y = 1
+		walk = walk_speed
+		run = run_speed
+		
+		if is_on_floor() and Input.is_action_just_pressed("ui_up"):
+			velocity.y = jump
+			can_double_jump = true
+		elif !is_on_floor() and can_double_jump and Input.is_action_just_pressed("ui_up"):
+			velocity.y = jump
+			can_double_jump = false
 	
-	
-	
+	# Handle walk and run
 	if Input.is_action_pressed("ui_left"):
+		_animated_sprite.play("walk")
+		_animated_sprite.flip_h = true
 		if (left_tap_timer > 0 or dash_left):
-			velocity.x = -run_speed
+			velocity.x = -run
 			dash_left = true
 		else:
-			velocity.x = -walk_speed
+			velocity.x = -walk
 	elif Input.is_action_pressed("ui_right"):
+		_animated_sprite.play("walk")
+		_animated_sprite.flip_h = false
 		if (right_tap_timer > 0 or dash_right):
-			velocity.x = run_speed
+			velocity.x = run
 			dash_right = true
 		else:
-			velocity.x = walk_speed
+			velocity.x = walk
 	else:
+		_animated_sprite.play("idle")
 		velocity.x = 0
 		dash_left = false
 		dash_right = false
