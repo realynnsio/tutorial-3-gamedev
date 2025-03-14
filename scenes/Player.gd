@@ -9,6 +9,8 @@ var run = run_speed
 var jump = jump_speed
 var can_double_jump = false
 @onready var _animated_sprite = $AnimatedSprite2D
+@onready var _raycast = $RayCast2D
+@onready var _area2d = $Area2D
 
 var right_tap_timer = 0
 var left_tap_timer = 0
@@ -41,8 +43,20 @@ func _physics_process(delta):
 		scale.y = 0.75
 		
 		if !is_on_floor():
+			#_raycast.enabled = true
+			#var target = _raycast.get_collider()
+			
+			var targets = _area2d.get_overlapping_bodies()
+			
+			for i in range(targets.size()):
+				var target = targets[i]
+				if target is Seal:
+					target.dead = true
+					target.death()
+					
 			velocity.y += delta * 20 * gravity
 	else:
+		#_raycast.enabled = false
 		scale.y = 1
 		walk = walk_speed
 		run = run_speed

@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsyfep1odrxje"]
+[gd_scene load_steps=7 format=3 uid="uid://dsyfep1odrxje"]
 
-[ext_resource type="PackedScene" uid="uid://dnhvrpjudyvye" path="res://Scenes/Ground.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dnhvrpjudyvye" path="res://scenes/Ground.tscn" id="1"]
+[ext_resource type="Script" path="res://scenes/Main.gd" id="1_bgq72"]
 [ext_resource type="PackedScene" uid="uid://bluex0aprcnln" path="res://scenes/Player.tscn" id="2_hax5y"]
-[ext_resource type="AudioStream" uid="uid://kj5dlfn32w4q" path="res://assets/sound/bgm.wav" id="3_wsuky"]
+[ext_resource type="PackedScene" uid="uid://bsw512h01fc2y" path="res://scenes/Seal.tscn" id="4_d8qo8"]
+[ext_resource type="AudioStream" uid="uid://bgdoe6xm3w62v" path="res://assets/sound/alma_bgm_loop2.wav" id="4_gd1jk"]
+[ext_resource type="AudioStream" uid="uid://cg5rf2bi6bhyk" path="res://assets/sound/death.wav" id="6_obnpl"]
 
 [node name="Root" type="Node2D"]
+script = ExtResource("1_bgq72")
 
 [node name="Ground" parent="." instance=ExtResource("1")]
 position = Vector2(507.708, 363.86)
@@ -19,5 +23,38 @@ position = Vector2(225.95, 294.562)
 position = Vector2(242, 123)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_wsuky")
+stream = ExtResource("4_gd1jk")
 autoplay = true
+
+[node name="Seal" parent="." instance=ExtResource("4_d8qo8")]
+position = Vector2(711, 241)
+
+[node name="Seal2" parent="." instance=ExtResource("4_d8qo8")]
+position = Vector2(329, 247)
+
+[node name="Seal3" parent="." instance=ExtResource("4_d8qo8")]
+position = Vector2(509, 320)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = 1.0
+offset_right = -0.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "POUND THE SEAL!!!!!!"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="SealDeathAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_obnpl")
+volume_db = 10.0
