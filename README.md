@@ -1,4 +1,53 @@
-# Implementation Explanation
+# Tutorial 5: Implementation Explanation
+
+Silakan berkreasi lebih lanjut untuk membuat Tutorial 3 dan 5 kamu lebih menarik dari sebelumnya! Jangan lupa untuk menjelaskan proses pengerjaan tutorial ini di dalam berkas README.md yang sama dengan Tutorial 3. Silakan tambahkan subbab (section) baru yang berisi penjelasan proses pengerjaan Tutorial 5. Cantumkan juga referensi-referensi yang digunakan sebagai acuan ketika menjelaskan proses implementasi.
+
+Implementasikan audio feedback dari interaksi antara objek baru dengan objek pemain. Misalnya, muncul efek suara ketika pemain tabrakan dengan objek baru.
+
+## 1. New Object (Seal!)
+
+Reference: https://forum.godotengine.org/t/enemy-movement-controll/75581/2
+
+To make the seal, I pretty much copied exactly the steps I would've done to make a player character, except this time this CharacterBody2D didn't take in input to move but followed a script for its path. I used the script in the reference above except added some gravity to it just so it wouldn't awkwardly float.
+
+I also wanted to make the seal sprite on my own (I love seals), so I ended up taking a bit of time to create a simple seal walking/wobbling animation in Aseprite and exported it as a spritesheet. To make the animation, I used AnimatedSprite2D much like how I animated Hungre (the player character) for tutorial-3 previously.
+
+## 2. New SFX Audio (Oof!)
+
+Reference: https://csui-game-development.github.io/tutorials/tutorial-5/
+
+To make the SFX Audio, I just recorded myself saying "oof!" into my laptop mic and cleaned it up in Audacity with noise reduction. I imported it into the project as-is right afterwards :D.
+
+## 3. New BGM (Self-made!)
+
+I had some old loops in Bandlab lying around since 2024, so I decided to download one of them to import as a new BGM for this tutorial. I genuinely just titled it as "loop2" in Bandlab!
+
+## 4. New Interaction (Ground-Pound!)
+
+Reference:
+- https://docs.godotengine.org/en/stable/classes/class_raycast2d.html
+- https://docs.godotengine.org/en/stable/classes/class_area2d.html
+- KenKomKom :D
+
+I knew it would be fun to implement a "ground-pound" mechanism for this tutorial since I coincidentally already implemented a fast fall feature since tutorial-3, but I wasn't sure how to do it properly. My reference for doing this was purely Kenichi's advice on what to do and the Godot docs...
+
+Ken first suggested using RayCast2D, so I tried that by triggering a `death()` function in the Seal if it comes into contact to the player's RayCast2D while the player is slamming down. This turned out to be a bit tricky since it only worked if the player's center was aligned with the seal.
+
+Since the gameplay was a bit frustrating with RayCast2D, I switched to Area2D instead. This proved to work a lot better for the collision detection and that's what I decided on keeping in the end.
+
+## 5. Audio Feedback (Oof!)
+
+Reference:
+- https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html
+- KenKomKom :D
+
+For the audio feedback, I placed the audio player with the death sound in the Seal node at first, but Ken suggested to keep all the audio in one place so I moved it to my main scene. To call this audio player in `Main.tscn` whenever the `death()` function was called in the Seal node, I created an extra script for global signals.
+
+In this `GlobalSignals.gd`, I created a `mob_died` signal. Whenever a Seal died, it would call and emit this `mob_died` global signal and my `Main.gd` would be the one to listen for it. In `Main.gd`, this global signal is connected to an `_on_mob_died()` function which plays the seal death sound in my main level whenever a signal is received.
+
+<br>
+
+# Tutorial 3: Implementation Explanation
 
 Below are a few short explanations on how I did this tutorial, complete with any references I used for each feature I implemented!
 

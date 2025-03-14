@@ -7,7 +7,6 @@ func _ready() -> void:
 	GlobalSignals.mob_died.connect(_on_mob_died)
 
 func _on_mob_died():
-	print("enter")
 	seal_death.play()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
