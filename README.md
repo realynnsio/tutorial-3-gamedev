@@ -1,8 +1,6 @@
 # Tutorial 5: Implementation Explanation
 
-Silakan berkreasi lebih lanjut untuk membuat Tutorial 3 dan 5 kamu lebih menarik dari sebelumnya! Jangan lupa untuk menjelaskan proses pengerjaan tutorial ini di dalam berkas README.md yang sama dengan Tutorial 3. Silakan tambahkan subbab (section) baru yang berisi penjelasan proses pengerjaan Tutorial 5. Cantumkan juga referensi-referensi yang digunakan sebagai acuan ketika menjelaskan proses implementasi.
-
-Implementasikan audio feedback dari interaksi antara objek baru dengan objek pemain. Misalnya, muncul efek suara ketika pemain tabrakan dengan objek baru.
+Below are a few short explanations on how I did this tutorial, complete with any references I used for each feature I implemented!
 
 ## 1. New Object (Seal!)
 
