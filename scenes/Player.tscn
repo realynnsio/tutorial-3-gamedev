@@ -125,3 +125,4 @@ shape = SubResource("RectangleShape2D_tk02s")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_jjk4k")
 animation = &"idle"
+autoplay = "idle"
